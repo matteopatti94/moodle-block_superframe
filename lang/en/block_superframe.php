@@ -36,6 +36,27 @@ $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
+$string['superframe:seeviewpage'] = 'Access the view page';
+$string['superframe:seeviewpagelink'] = 'View page link';
+
+// Edit form strings.
+$string['size'] = 'Select a size for your iframe';
+$string['custom'] = 'Custom';
+$string['small'] = 'Small';
+$string['medium'] = 'Medium';
+$string['large'] = 'Large';
 
 $string['message'] = 'I am a great developer';
 $string['viewlink'] = 'View page';
+
+// Setting properties.
+$string['url'] = 'iFrame URL';
+$string['url_details'] = '';
+$string['height'] = 'Height';
+$string['height_details'] = '';
+$string['width'] = 'Width';
+$string['width_details'] = '';
+$string['layout'] = 'iFrame layout';
+$string['layout_details'] = '';
+$string['headerconfig'] = 'Header';
+$string['headerconfigdesc'] = 'desc Header';

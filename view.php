@@ -22,28 +22,80 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require('../../config.php');
-$PAGE->set_course($COURSE);
-$PAGE->set_url('/blocks/superframe/view.php');
+$blockid = required_param('blockid', PARAM_INT);
+$courseid = required_param('courseid', PARAM_INT);
+$def_config = get_config('block_superframe');
+if ($courseid == $SITE->id) {
+    $context = context_system::instance();
+    $PAGE->set_context($context);
+} else {
+    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    // This means that we can prevent access with 'seeviewpage' capability on a course override basis.
+    $PAGE->set_course($course);
+    $context = $PAGE->context;
+}
+$PAGE->set_url('/blocks/superframe/view.php',
+    array('blockid' => $blockid, 'courseid' => $courseid, 'size' => $size));
 $PAGE->set_heading($SITE->fullname);
-$PAGE->set_pagelayout('course');
+$PAGE->set_pagelayout($def_config->layout);
 $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
+
 require_login();
+
+// Check the users permissions to see the view page.
+require_capability('block/superframe:seeviewpage', $context);
+
+/* Get the instance configuration data from the database.
+   It's stored as a base 64 encoded serialized string. */
+$configdata = $DB->get_field('block_instances', 'configdata', ['id' => $blockid]);
+
+// If an entry exists, convert to an object.
+if ($configdata) {
+    $config = unserialize(base64_decode($configdata));
+} else {
+    // No instance data, use admin settings.
+    // However, that only specifies height and width, not size.
+    $config = $def_config;
+    $config->size = 'custom';
+}
+
+// URL - comes either from instance or admin.
+$url = $config->url;
+// Let's set up the iframe attributes.
+switch ($config->size) {
+    case 'custom':
+        $width = $def_config->width;
+        $height = $def_config->height;
+        break;
+    case 'small' :
+        $width = 360;
+        $height = 240;
+        break;
+    case 'medium' :
+        $width = 600;
+        $height = 400;
+        break;
+    case 'large' :
+        $width = 1024;
+        $height = 720;
+        break;
+}
 
 // Start output to browser.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
-echo '<br>' . fullname($USER) . '<br>';
-echo '<pre>' . $OUTPUT->user_picture($USER, array('popup'=>true)) . '</pre>';
+echo '<br>';
+echo '<div>' . $OUTPUT->user_picture($USER, array('popup' => true));
+echo fullname($USER) . '</div>';
+echo '<br>';
+
 // Build and display an iframe.
-$url = 'https://quizlet.com/132695231/scatter/embed';
-$width = '600px';
-$height = '400px';
 $attributes = ['src' => $url,
                'width' => $width,
                'height' => $height];
 echo html_writer::start_tag('iframe', $attributes);
 echo html_writer::end_tag('iframe');
 
-//send footer out to browser
+// Send footer out to browser.
 echo $OUTPUT->footer();
