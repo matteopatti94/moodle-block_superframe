@@ -32,6 +32,7 @@
 // General.
 $string['pluginname'] = 'Super frame';
 $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
+$string['welcomeuserfullname'] = 'Welcome {$a}';
 
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
