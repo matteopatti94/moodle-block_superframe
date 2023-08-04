@@ -66,6 +66,10 @@
         // Add a link to the popup page.
         $data->popurl = new moodle_url('/blocks/superframe/block_data.php');
         $data->poptext = get_string('poptext', 'block_superframe');
+        
+        // Add a link to the table manager.
+        $data->tableurl = new moodle_url('/blocks/superframe/tablemanager.php', ['courseid' => $courseid]);
+        $data->tabletext = get_string('tabletext', 'block_superframe');
 
         // List of course students.
         if (has_capability('block/superframe:seestudentslist', $context)) {

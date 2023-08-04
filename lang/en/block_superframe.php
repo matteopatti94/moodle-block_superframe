@@ -40,6 +40,9 @@ $string['course'] = 'Block course';
 $string['catname'] = 'Course category';
 $string['tablecaption'] = 'Block data';
 $string['poptext'] = 'Block summary';
+$string['tablemanager'] = 'Table Manager: ';
+$string['tabletext'] = 'Table editing';
+$string['norecordsfound'] = 'No records found';
 
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
