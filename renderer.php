@@ -63,6 +63,10 @@
             $data->url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid, 'courseid' => $courseid]);
         }
 
+        // Add a link to the popup page.
+        $data->popurl = new moodle_url('/blocks/superframe/block_data.php');
+        $data->poptext = get_string('poptext', 'block_superframe');
+
         // List of course students.
         if (has_capability('block/superframe:seestudentslist', $context)) {
             foreach ($users as $user) {
@@ -71,5 +75,42 @@
         }
 
         return $this->render_from_template('block_superframe/block', $data);
+    }
+
+    /**
+     * Function to display a table of records
+     * @param array the records to display.
+     * @return none.
+     */
+    public function display_block_table($records) {
+        // Prepare the data for the template.
+        $table = new stdClass();
+
+        // Table headers.
+        $table->tableheaders = [
+            get_string('blockid', 'block_superframe'),
+            get_string('blockname', 'block_superframe'),
+            get_string('course', 'block_superframe'),
+            get_string('catname', 'block_superframe'),
+        ];
+
+        // Build the data rows.
+        foreach ($records as $record) {
+            $data = array();
+            $data[] = $record->id;
+            $data[] = $record->blockname;
+            $data[] = $record->shortname;
+            $data[] = $record->catname;
+            $table->tabledata[] = $data;
+        }
+
+        // Start output to browser.
+        echo $this->output->header();
+
+        // Call our template to render the data.
+        echo $this->render_from_template('block_superframe/block_data', $table);
+
+        // Finish the page.
+        echo $this->output->footer();
     }
 }

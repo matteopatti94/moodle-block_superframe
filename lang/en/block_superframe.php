@@ -34,6 +34,12 @@ $string['pluginname'] = 'Super frame';
 $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
 $string['welcomeuserfullname'] = 'Welcome {$a}';
 $string['returncourse'] = 'Back to the course';
+$string['blockid'] = 'Block id';
+$string['blockname'] = 'Block name';
+$string['course'] = 'Block course';
+$string['catname'] = 'Course category';
+$string['tablecaption'] = 'Block data';
+$string['poptext'] = 'Block summary';
 
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
