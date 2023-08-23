@@ -30,10 +30,11 @@
 }}
 
 <div  class="container">
-    <p>{{#str}} welcomeuserfullname, block_superframe, {{fullname}} {{/str}}</p>
-    <h5>{{heading}}</h5>
-    {{> block_superframe/links}}
-    <iframe src="{{url}}" height="{{height}}" width="{{width}}"></iframe>
-    <br>
-    <a href="{{returnlink}}">{{#str}}returncourse, block_superframe{{/str}}</a>
+    <ul class="list-inline">
+        {{#linkdata}}
+        <li class="list-inline-item">
+            <a href="{{{link}}}">{{text}}</a>
+        </li>
+        {{/linkdata}}
+    </ul>
 </div>
