@@ -74,3 +74,8 @@ $string['headerconfigdesc'] = 'desc Header';
 
 // Navigation API.
 $string['userlink'] = 'Installed blocks';
+
+// Modal.
+$string['about'] = 'About superframe';
+$string['modalbody'] = 'An example from the MoodleBites Developers level 1 course.';
+$string['modalfooter'] = 'Thank you for your interest.';

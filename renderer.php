@@ -26,6 +26,17 @@
 
     function display_view_page($url, $width, $height, $courseid) {
         global $USER;
+        
+        $this->page->requires->js_call_amd('block_superframe/modal_amd', 'init',
+            array('data' =>
+                array(
+                    'title' => get_string('about', 'block_superframe'),
+                    'body' => get_string('modalbody', 'block_superframe'),
+                    'footer' => get_string('modalfooter', 'block_superframe')
+                )
+            )
+        );
+
         $data = new stdClass();
 
         // Page heading and iframe data.
